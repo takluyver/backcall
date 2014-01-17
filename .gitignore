@@ -1,0 +1,11 @@
+*.py[cod]
+
+dist
+build
+
+.coverage
+.tox
+nosetests.xml
+
+# Sphinx
+docs/_build
