@@ -81,13 +81,12 @@ def callback_prototype(prototype):
         if unrecognised:
             raise TypeError("Function {!r} had unmatched arguments: {}".format(callback, unrecognised))
 
-        cut_positional = len(unmatched_pos)
+        n_positional = len(positional) - len(unmatched_pos)
 
         @wraps(callback)
         def adapted(*args, **kwargs):
 #            print(args, kwargs)
-            if cut_positional:
-                args = args[:-cut_positional]
+            args = args[:n_positional]
             for name in unmatched_kw:
                 # XXX: Could name not be in kwargs?
                 kwargs.pop(name)
