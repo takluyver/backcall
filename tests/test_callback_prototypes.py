@@ -1,3 +1,4 @@
+import sys
 from backcall import callback_prototype
 
 @callback_prototype
@@ -12,13 +13,21 @@ def test_all_args():
     assert not getattr(thingy1, '__wrapped__', None)
     assert thingy1('A', 'B', 'C', d='D', e='E', f='F') == tuple('ABCDEF')
 
-def test_some_args():
+if sys.version_info[0] >= 3:
+    exec("@msg_callback\n"
+         "def thingy2(t, *, d=None):\n"
+         "    return t, d")
+    def test_some_args_kwonly():    
+        assert getattr(thingy2, '__wrapped__', None)
+        assert thingy2('A', 'B', 'C', d='D', e='E', f='F') == ('A', 'D')
+
+def test_some_args_defaults():
     @msg_callback
-    def thingy2(t, *, d=None):
+    def thingy2b(t, d=None):
         return t, d
     
-    assert getattr(thingy2, '__wrapped__', None)
-    assert thingy2('A', 'B', 'C', d='D', e='E', f='F') == ('A', 'D')
+    assert getattr(thingy2b, '__wrapped__', None)
+    assert thingy2b('A', 'B', 'C', d='D', e='E', f='F') == ('A', 'D')
 
 def test_no_args():
     @msg_callback

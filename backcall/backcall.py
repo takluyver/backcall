@@ -4,8 +4,25 @@ Created on Mon Jan 13 18:17:15 2014
 
 @author: takluyver
 """
-from inspect import signature, Parameter
-from functools import wraps
+import sys
+PY3 = (sys.version_info[0] >= 3)
+
+try:
+    from inspect import signature, Parameter  # Python >= 3.3
+except ImportError:
+    from ._signatures import signature, Parameter
+
+if PY3:
+    from functools import wraps
+else:
+    from functools import wraps as _wraps
+    def wraps(f):
+        def dec(func):
+            _wraps(f)(func)
+            func.__wrapped__ = f
+            return func
+
+        return dec
 
 def callback_prototype(prototype):
     protosig = signature(prototype)
@@ -43,10 +60,10 @@ def callback_prototype(prototype):
                 else:
                     unrecognised.append(name)
             elif param.kind == Parameter.POSITIONAL_OR_KEYWORD:
-                if len(unmatched_pos) > 0:
-                    unmatched_pos.pop(0)
-                elif name in unmatched_kw:
+                if (param.default is not Parameter.empty) and (name in unmatched_kw):
                     unmatched_kw.pop(name)
+                elif len(unmatched_pos) > 0:
+                    unmatched_pos.pop(0)    
                 else:
                     unrecognised.append(name)
             elif param.kind == Parameter.VAR_POSITIONAL:
