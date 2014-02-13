@@ -53,7 +53,7 @@ def callback_prototype(prototype):
         unrecognised = []
         # TODO: unrecognised parameters with default values - OK?
         for name, param in sig.parameters.items():
-            print(name, param.kind)
+            # print(name, param.kind) #DBG
             if param.kind == Parameter.POSITIONAL_ONLY:
                 if len(unmatched_pos) > 0:
                     unmatched_pos.pop(0)
@@ -76,7 +76,7 @@ def callback_prototype(prototype):
             else:  # VAR_KEYWORD
                 unmatched_kw = {}
         
-            print(unmatched_pos, unmatched_kw, unrecognised)
+            # print(unmatched_pos, unmatched_kw, unrecognised) #DBG
         
         if unrecognised:
             raise TypeError("Function {!r} had unmatched arguments: {}".format(callback, unrecognised))
