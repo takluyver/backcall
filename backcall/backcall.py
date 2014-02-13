@@ -25,6 +25,14 @@ else:
         return dec
 
 def callback_prototype(prototype):
+    """Decorator to process a callback prototype.
+    
+    A callback prototype is a function whose signature includes all the values
+    that will be passed by the callback API in question.
+    
+    The original function will be returned, with a ``prototype.adapt`` attribute
+    which can be used to prepare third party callbacks.
+    """
     protosig = signature(prototype)
     positional, keyword = [], []
     for name, param in protosig.parameters.items():
@@ -39,6 +47,7 @@ def callback_prototype(prototype):
         
     kwargs = dict.fromkeys(keyword)
     def adapt(callback):
+        """Introspect and prepare a third party callback."""
         sig = signature(callback)
         try:
             # XXX: callback can have extra optional parameters - OK?
@@ -85,6 +94,7 @@ def callback_prototype(prototype):
 
         @wraps(callback)
         def adapted(*args, **kwargs):
+            """Wrapper for third party callbacks that discards excess arguments"""
 #            print(args, kwargs)
             args = args[:n_positional]
             for name in unmatched_kw:
