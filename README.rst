@@ -24,7 +24,7 @@ function::
     
     def register_ping_handler(callback):
         # This checks and adapts the function passed in:
-        callback = handle_ping(callback)
+        callback = handle_ping.adapt(callback)
         ping_callbacks.append(callback)
 
 If the callback takes fewer parameters than your prototype, *backcall* will wrap
