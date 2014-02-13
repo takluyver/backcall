@@ -31,6 +31,9 @@ If the callback takes fewer parameters than your prototype, *backcall* will wrap
 it in a function that discards the extra arguments. If the callback expects
 more arguments, a TypeError is thrown when it is registered.
 
+For more details, see the `docs <http://backcall.readthedocs.org/en/latest/>`_ or
+the `Demo notebook <http://nbviewer.ipython.org/github/takluyver/backcall/blob/master/Demo.ipynb>`_.
+
 The tests are run with `pytest <http://pytest.org/latest/>`_. In the root directory,
 execute::
 
