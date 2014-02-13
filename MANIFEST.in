@@ -1,0 +1,3 @@
+recursive-include tests *
+global-exclude __pycache__ *.pyc
+include README.rst

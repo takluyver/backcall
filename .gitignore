@@ -3,6 +3,7 @@
 
 dist
 build
+MANIFEST
 
 .coverage
 .tox
