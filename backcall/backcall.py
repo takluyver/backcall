@@ -95,4 +95,5 @@ def callback_prototype(prototype):
         
         return adapted
 
-    return adapt
+    prototype.adapt = adapt
+    return prototype

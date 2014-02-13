@@ -6,7 +6,7 @@ def msg_callback(a, b, c, d=None, e=None, f=None):
     pass
 
 def test_all_args():
-    @msg_callback
+    @msg_callback.adapt
     def thingy1(q, w, s, d, e, f):
         return q, w, s, d, e, f
     
@@ -14,7 +14,7 @@ def test_all_args():
     assert thingy1('A', 'B', 'C', d='D', e='E', f='F') == tuple('ABCDEF')
 
 if sys.version_info[0] >= 3:
-    exec("@msg_callback\n"
+    exec("@msg_callback.adapt\n"
          "def thingy2(t, *, d=None):\n"
          "    return t, d")
     def test_some_args_kwonly():    
@@ -22,7 +22,7 @@ if sys.version_info[0] >= 3:
         assert thingy2('A', 'B', 'C', d='D', e='E', f='F') == ('A', 'D')
 
 def test_some_args_defaults():
-    @msg_callback
+    @msg_callback.adapt
     def thingy2b(t, d=None):
         return t, d
     
@@ -30,7 +30,7 @@ def test_some_args_defaults():
     assert thingy2b('A', 'B', 'C', d='D', e='E', f='F') == ('A', 'D')
 
 def test_no_args():
-    @msg_callback
+    @msg_callback.adapt
     def thingy3():
         return 'Success'
     
