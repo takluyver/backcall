@@ -30,3 +30,8 @@ function::
 If the callback takes fewer parameters than your prototype, *backcall* will wrap
 it in a function that discards the extra arguments. If the callback expects
 more arguments, a TypeError is thrown when it is registered.
+
+The tests are run with `pytest <http://pytest.org/latest/>`_. In the root directory,
+execute::
+
+    py.test
