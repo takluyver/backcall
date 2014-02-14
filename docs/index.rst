@@ -22,7 +22,7 @@ doesn't need to do anything; only the signature is used.
 
 ::
 
-    def msg_received_prototype(positional1, positional2, kw1=None, *, kw2=None):
+    def msg_received_prototype(positional1, positional2, kw1=None, *, kw2):
         pass
 
 Decorate your callback prototype with :func:`callback_prototype`:
