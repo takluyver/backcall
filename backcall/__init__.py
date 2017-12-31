@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+"""Specifications for callback functions passed in to an API"""
 from .backcall import callback_prototype
 
 __author__ = 'Thomas Kluyver'
